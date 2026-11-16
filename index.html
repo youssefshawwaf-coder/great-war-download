@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الحرب العظمى</title>
+<meta name="description" content="لعبة استراتيجية للأندرويد: توسّع وتحالف وحارب وأدِر دولتك حتى تحكم الخريطة كلها. تعمل بلا إنترنت، بالعربية والإنجليزية.">
+<meta name="theme-color" content="#0a1822">
+<meta property="og:type" content="website">
+<meta property="og:title" content="الحرب العظمى: نزّل اللعبة">
+<meta property="og:description" content="لعبة استراتيجية للأندرويد: توسّع وتحالف وحارب وأدِر دولتك حتى تحكم الخريطة كلها.">
+<meta property="og:image" content="https://youssefshawwaf-coder.github.io/great-war-download/og.jpg">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="emblem.svg" type="image/svg+xml">
+<style>
+/* Layout: one column, like a field order: the emblem and the download plate,
+   the battle as it looks, then how to install and what is inside. */
+@font-face {
+  font-family: Cairo;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("fonts/cairo-arabic.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+  font-family: Cairo;
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("fonts/cairo-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: dark;
+  --sea: #0a1822;          /* the deep sea around the map */
+  --plate: #111d27;        /* panels */
+  --plate-hi: #16242f;
+  --line: rgba(220, 170, 78, 0.24);
+  --line-soft: rgba(251, 246, 234, 0.08);
+  --parchment: #fbf6ea;    /* text */
+  --dim: #b4bec3;
+  --faint: #7f8d95;
+  --brass: #dcaa4e;
+  --brass-hi: #f6d27f;
+  --brass-lo: #8f6a2e;
+  --field: #8ea35a;        /* the land squares of the emblem */
+  --font: Cairo, "Noto Sans Arabic", "Segoe UI", Tahoma, Roboto, Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--sea);
+  /* A faint grid of squares: the game is played on a map of them. */
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: center top;
+  color: var(--parchment);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: max(28px, env(safe-area-inset-top, 0px)) max(36px, env(safe-area-inset-bottom, 0px));
+}
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  gap: 44px;
+}
+
+a { color: var(--brass-hi); }
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--brass-hi);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* ---------------------------------------------------------------- top */
+
+.head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 14px;
+  padding-top: 8px;
+}
+
+.emblem {
+  width: 92px;
+  height: 92px;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.5));
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(42px, 9vw, 68px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0;
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass) 60%, var(--brass-lo));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0;
+  max-width: 34em;
+  color: var(--dim);
+  font-size: 18.5px;
+  text-wrap: balance;
+}
+
+/* The download plate. */
+.plate {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 22px 20px 18px;
+  width: min(100%, 460px);
+  background: linear-gradient(180deg, var(--plate-hi), var(--plate));
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 22px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass) 55%, #b98a3c);
+  color: #1b1408;
+  font-size: 21px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(220, 170, 78, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.download:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(220, 170, 78, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
+.download:active { transform: translateY(1px); }
+
+.download svg { width: 26px; height: 26px; flex: none; }
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--dim);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts b { color: var(--parchment); font-weight: 700; }
+
+.plate .more { font-size: 15px; color: var(--faint); }
+.plate .more a { color: var(--dim); }
+
+/* ---------------------------------------------------------------- shots */
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+
+.shots figure {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.shots img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1688 / 780;
+  border-radius: 14px;
+  border: 6px solid #05090d;
+  box-shadow: 0 0 0 1px var(--line), 0 14px 30px rgba(0, 0, 0, 0.45);
+  background: var(--plate);
+}
+
+.shots figcaption {
+  color: var(--faint);
+  font-size: 14.5px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------- text */
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+section { min-width: 0; }
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--brass-hi);
+  text-wrap: balance;
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 12px;
+}
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--plate);
+  color: var(--brass-hi);
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.note {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(220, 170, 78, 0.07);
+  border: 1px solid var(--line);
+  color: var(--dim);
+  font-size: 15.5px;
+}
+
+.features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.features li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.features li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-top: 9px;
+  border-radius: 2px;
+  background: var(--field);
+  box-shadow: 0 0 0 2px rgba(142, 163, 90, 0.18);
+}
+
+.features li:nth-child(3n + 2)::before { background: #c86b55; box-shadow: 0 0 0 2px rgba(200, 107, 85, 0.18); }
+.features li:nth-child(3n)::before { background: #5f8fb8; box-shadow: 0 0 0 2px rgba(95, 143, 184, 0.18); }
+
+/* ---------------------------------------------------------------- fingerprint and footer */
+
+.print {
+  display: grid;
+  gap: 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.print p { margin: 0; color: var(--dim); font-size: 15.5px; }
+
+.hash {
+  direction: ltr;
+  text-align: left;
+  overflow-x: auto;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #070f15;
+  border: 1px solid var(--line-soft);
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.5;
+  white-space: nowrap;
+  user-select: all;
+}
+
+footer {
+  color: var(--faint);
+  font-size: 14px;
+  text-align: center;
+  display: grid;
+  gap: 2px;
+}
+
+footer p { margin: 0; }
+footer a { color: var(--dim); }
+
+@media (max-width: 720px) {
+  body { font-size: 16.5px; }
+  main { gap: 36px; }
+  .shots, .cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .download { transition: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header class="head">
+    <img class="emblem" src="emblem.svg" alt="" width="92" height="92">
+    <h1>الحرب العظمى</h1>
+    <p class="lede">لعبة استراتيجية على خريطة من مربعات: توسّع في الأرض المحايدة، وتحالف، وحارب جيرانك، وأدِر دولتك حتى تحكم الخريطة كلها.</p>
+
+    <div class="plate">
+      <a class="download" id="download" href="https://github.com/youssefshawwaf-coder/great-war-download/releases/latest/download/great-war.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>
+        <span>نزّل اللعبة للأندرويد</span>
+      </a>
+      <ul class="facts">
+        <li>الإصدار <b>0.11.0</b></li>
+        <li>الحجم <b>4.3 ميغابايت</b></li>
+        <li>أندرويد <b>7</b> أو أحدث</li>
+      </ul>
+      <p class="more">الملف <bdi>great-war.apk</bdi> · <a href="https://github.com/youssefshawwaf-coder/great-war-download/releases/latest">صفحة الإصدار</a></p>
+    </div>
+  </header>
+
+  <div class="shots">
+    <figure>
+      <img src="shots/map.webp" alt="خريطة المعركة: دول ملونة بأسمائها وعدد جنودها، وشريط علوي بالجنود والذهب والمعنويات، وأزرار الدولة والعالم والبناء والترتيب." width="1688" height="780" loading="lazy" decoding="async">
+      <figcaption>الخريطة: دولتك بالأصفر، وكل دولة باسمها وجنودها.</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/world.webp" alt="لوحة العالم مفتوحة بجانب الخريطة على صفحة دولة مجاورة: الأرض والجنود، ورأي كل منكما في الآخر، ودينها." width="1688" height="780" loading="lazy" decoding="async">
+      <figcaption>صفحة دولة جارة، تفتحها بضغطة مطوّلة على أرضها.</figcaption>
+    </figure>
+  </div>
+
+  <div class="cols">
+    <section aria-labelledby="install">
+      <h2 id="install">التثبيت</h2>
+      <ol class="steps">
+        <li><span>اضغط «نزّل اللعبة للأندرويد» وانتظر حتى يكتمل التنزيل.</span></li>
+        <li><span>افتح الملف <bdi>great-war.apk</bdi> من الإشعارات أو من مجلد التنزيلات.</span></li>
+        <li><span>إذا قال أندرويد إن التثبيت من هذا المصدر غير مسموح، فاضغط «الإعدادات» واسمح للمتصفح بالتثبيت، ثم ارجع واضغط «تثبيت».</span></li>
+        <li><span>افتح «الحرب العظمى» من قائمة التطبيقات.</span></li>
+      </ol>
+      <p class="note">اللعبة ليست على Google Play بعد، لذلك يسألك أندرويد قبل التثبيت، وقد يعرض Play Protect تنبيهًا بأن المطوّر غير معروف لديه. والنسخ الجديدة تُثبَّت فوق القديمة.</p>
+    </section>
+
+    <section aria-labelledby="inside">
+      <h2 id="inside">في اللعبة</h2>
+      <ul class="features">
+        <li><span>أربع جولات: سريعة تنتهي في دقائق، ومتوسطة، وبطيئة، وبطيئة جدًا تمتد ساعات.</span></li>
+        <li><span>اختر نسبة جنودك، واضغط على الأرض المحايدة لتتوسع، أو على جارك لتهاجمه.</span></li>
+        <li><span>تحالفات ومعاهدات وتكتلات ودول تابعة، وجنود دعم ترسلهم إلى حليفك حين يُهاجَم ثم يعودون إليك.</span></li>
+        <li><span>اقتصاد وضرائب، وشعوب تطالب حكامها وتثور، وأديان تؤسسها الدول وتنشرها.</span></li>
+        <li><span>ثمانية وثلاثون مبنى وأربع عجائب، وخرائط حتى 500 دولة.</span></li>
+        <li><span>تعمل بلا إنترنت، بالعربية والإنجليزية.</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="print" aria-labelledby="fingerprint">
+    <h2 id="fingerprint">بصمة الملف</h2>
+    <p>لمن يريد التأكد أن الملف الذي نزّله هو نفسه دون تغيير، هذه بصمته بخوارزمية SHA-256:</p>
+    <div class="hash" tabindex="0">2cabe69bd4cfa0ac8d4e2b1261eaec0b9dd0fa2bbfc9d44b0bacdc2c76ed0483</div>
+  </section>
+
+  <footer>
+    <p>الحرب العظمى، الإصدار 0.11.0، 16 نوفمبر 2026.</p>
+    <p>الخط Cairo برخصة <a href="fonts/OFL.txt">SIL Open Font License</a>.</p>
+  </footer>
+</main>
+</body>
+</html>
