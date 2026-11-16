@@ -4,7 +4,7 @@
 
 لعبة استراتيجية للأندرويد على خريطة من مربعات: توسّع في الأرض المحايدة، وتحالف، وحارب جيرانك، وأدِر دولتك حتى تحكم الخريطة كلها.
 
-## [نزّل اللعبة للأندرويد](https://github.com/youssefshawwaf-coder/great-war-download/releases/latest/download/great-war.apk)
+## [نزّل اللعبة للأندرويد](https://github.com/youssefshawwaf-coder/great-war-download/raw/main/great-war.apk)
 
 الإصدار 0.11.0 · الحجم 4.3 ميغابايت · أندرويد 7 أو أحدث
 
